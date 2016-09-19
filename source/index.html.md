@@ -85,7 +85,7 @@ Using this API you can get available dates for one year from current date, for o
 
 ### HTTP Request
 
-`GET http://app.thebookingfactory.com/api/public/v1/available_dates`
+`GET https://app.thebookingfactory.com/api/public/v1/available_dates`
 
 ### Query Parameters
 
@@ -178,7 +178,7 @@ date_from and date_to arguments is required.
 
 ### HTTP Request
 
-`GET http://app.thebookingfactory.com/api/public/v1/available_rooms`
+`GET https://app.thebookingfactory.com/api/public/v1/available_rooms`
 
 ### Query Parameters
 
@@ -266,7 +266,7 @@ date_from, date_to and room_type is required fields.
 
 ### HTTP Request
 
-`GET http://app.thebookingfactory.com/api/public/v1/available_dates`
+`GET https://app.thebookingfactory.com/api/public/v1/available_dates`
 
 ### Query Parameters
 
@@ -340,7 +340,7 @@ This endpoint retrieves list of all available extras.
 
 ### HTTP Request
 
-`GET http://app.thebookingfactory.com/api/public/v1/available_extras`
+`GET https://app.thebookingfactory.com/api/public/v1/available_extras`
 
 ### Query Parameters
 
@@ -398,7 +398,7 @@ If member is exists, system send email with authentication code for member. Memb
 
 ### HTTP Request
 
-`GET http://app.thebookingfactory.com/api/public/v1/check_member`
+`GET https://app.thebookingfactory.com/api/public/v1/check_member`
 
 ### Query Parameters
 
@@ -456,7 +456,7 @@ This endpoint retrieves member details to fill booking form.
 
 ### HTTP Request
 
-`GET http://app.thebookingfactory.com/api/public/v1/member_details`
+`GET https://app.thebookingfactory.com/api/public/v1/member_details`
 
 ### Query Parameters
 
@@ -562,7 +562,7 @@ This endpoint calculate totals for provided booking object
 
 ### HTTP Request
 
-`POST http://app.thebookingfactory.com/api/public/v1/calculate_totals`
+`POST https://app.thebookingfactory.com/api/public/v1/calculate_totals`
 
 ### Query Parameters
 
@@ -668,7 +668,7 @@ This endpoint create new booking at TheBookingFactory system.
 
 ### HTTP Request
 
-`POST http://app.thebookingfactory.com/api/public/v1/create_booking`
+`POST https://app.thebookingfactory.com/api/public/v1/create_booking`
 
 ### Query Parameters
 
