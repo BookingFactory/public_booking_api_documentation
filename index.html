@@ -4,10 +4,8 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>API Reference</title>
+    <title>Public Booking API Reference</title>
 
-    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
-    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
     <style>
       .highlight table td { padding: 5px; }
 .highlight table pre { margin: 0; }
@@ -88,10 +86,12 @@
   color: #90a959;
 }
     </style>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;python&quot;]">
+  <body class="index" data-languages="[&quot;javascript&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -101,9 +101,7 @@
     <div class="tocify-wrapper">
       <img src="images/logo.png" />
         <div class="lang-selector">
-              <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
+              <a href="#" data-language-name="javascript">javascript</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -112,7 +110,6 @@
       <div id="toc">
       </div>
         <ul class="toc-footer">
-            <li><a href='#'>Sign Up for a Developer Key</a></li>
             <li><a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a></li>
         </ul>
     </div>
@@ -121,149 +118,101 @@
       <div class="content">
         <h1 id="introduction">Introduction</h1>
 
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+<p>Welcome to the Booking Factory Public Booking API! You can use our API to write your own booking engine.</p>
 
-<p>We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<p>Our API based at simple HTTP requests, as result you can use any language! You can view code examples in the dark area to the right, we provide examples at JavaScript, but you can use CURL or other libraries.</p>
 
 <p>This example API documentation page was created with <a href="https://github.com/tripit/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&rsquo;s documentation.</p>
 
+<h1 id="api-endpoint">API Endpoint</h1>
+<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">API_ENDPOINT</span> <span class="o">=</span> <span class="s1">'https://app.thebookingfactory.com/api/public/v1/'</span><span class="p">;</span>
+</code></pre>
+
+<p>Our API endpoint located at https://app.thebookingfactory.com/api/public/v1/</p>
+
 <h1 id="authentication">Authentication</h1>
-
-<blockquote>
-<p>To authorize, use this code:</p>
-</blockquote>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
+<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">API_KEY</span> <span class="o">=</span> <span class="s1">'meowmeowmeow'</span><span class="p">;</span>
 </code></pre>
 
 <blockquote>
 <p>Make sure to replace <code class="prettyprint">meowmeowmeow</code> with your API key.</p>
 </blockquote>
 
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
+<p>Our engine uses API keys to allow access to the API. You can register a new API key at your <a href="https://app.thebookingfactory.com/client/#/settings/other/api_key">hotel settings page</a>.</p>
 
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
+<p>We expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
 
-<p><code class="prettyprint">Authorization: meowmeowmeow</code></p>
+<p><code class="prettyprint">Token: meowmeowmeow</code></p>
 
 <aside class="notice">
 You must replace <code>meowmeowmeow</code> with your personal API key.
 </aside>
 
-<h1 id="kittens">Kittens</h1>
+<h1 id="methods">Methods</h1>
 
-<h2 id="get-all-kittens">Get All Kittens</h2>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre>
-<pre class="highlight shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre>
-
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre>
-
-<p>This endpoint retrieves all kittens.</p>
-
-<h3 id="http-request">HTTP Request</h3>
-
-<p><code class="prettyprint">GET http://example.com/api/kittens</code></p>
-
-<h3 id="query-parameters">Query Parameters</h3>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
-</tr>
-<tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
-</tr>
-</tbody></table>
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-<h2 id="get-a-specific-kitten">Get a Specific Kitten</h2>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
+<h2 id="get-available-dates">Get Available Dates</h2>
+<pre class="highlight javascript"><code><span class="nx">fetch</span><span class="p">(</span>
+    <span class="nx">API_ENDPOINT</span> <span class="o">+</span> <span class="s1">'available_dates?date_from=2016-09-20'</span><span class="p">,</span>
+    <span class="p">{</span>
+      <span class="na">method</span><span class="p">:</span>  <span class="s1">'GET'</span><span class="p">,</span>
+      <span class="na">headers</span><span class="p">:</span> <span class="p">{</span> <span class="s1">'Token'</span><span class="p">:</span> <span class="nx">API_KEY</span> <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">raw_response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">raw_response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+  <span class="p">})</span>
 </code></pre>
 
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+  </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"date_from"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-09-20"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"date_to"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-09-20"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"dates"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"2016-09-20"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"2016-09-21"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"2016-09-22"</span><span class="p">,</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+    </span><span class="s2">"2017-09-20"</span><span class="w">
+  </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>This endpoint retrieves a specific kitten.</p>
+<p>This endpoint retrieves list of all available to book dates. Date is available to book if we have at least one room available to book at this date.</p>
 
-<aside class="warning">Inside HTML code blocks like this one, you can&rsquo;t use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+<p>Using this API you can get available dates for one year from current date, for one year from date_from or for dates between date_from and date_to.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET http://example.com/kittens/&lt;ID&gt;</code></p>
+<p><code class="prettyprint">GET http://app.thebookingfactory.com/api/public/v1/available_dates</code></p>
 
-<h3 id="url-parameters">URL Parameters</h3>
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>date_from</td>
+<td>false</td>
+<td>Date from, should be a valid date in ISO 8601 YYYY-MM-DD format. If values is not present, API use current date as date_from</td>
+</tr>
+<tr>
+<td>date_to</td>
+<td>false</td>
+<td>Date to, should be a valid date in ISO 8601 YYYY-MM-DD format. If values is not present, API calculate date_to as date_from + 1 year</td>
+</tr>
+</tbody></table>
+
+<h3 id="response">Response</h3>
 
 <table><thead>
 <tr>
@@ -272,75 +221,1113 @@ Remember — a happy kitten is an authenticated kitten!
 </tr>
 </thead><tbody>
 <tr>
-<td>ID</td>
-<td>The ID of the kitten to retrieve</td>
+<td>success</td>
+<td>Show current request status, if all is ok then TRUE, if request has any errors then FALSE</td>
+</tr>
+<tr>
+<td>errors</td>
+<td>Array of error descriptions. Displayed only if success == false</td>
+</tr>
+<tr>
+<td>date_from</td>
+<td>Date in ISO 8601 YYYY-MM-DD format</td>
+</tr>
+<tr>
+<td>date_to</td>
+<td>Date in ISO 8601 YYYY-MM-DD format</td>
+</tr>
+<tr>
+<td>dates</td>
+<td>Array of available dates in ISO 8601 YYYY-MM-DD format</td>
 </tr>
 </tbody></table>
 
-          <h1 id="errors">Errors</h1>
+<h2 id="get-available-rooms">Get Available Rooms</h2>
+<pre class="highlight javascript"><code><span class="nx">fetch</span><span class="p">(</span>
+    <span class="nx">API_ENDPOINT</span> <span class="o">+</span> <span class="s1">'available_rooms?date_from=2016-09-20&amp;date_to=2016-09-22&amp;currency=RUB'</span><span class="p">,</span>
+    <span class="p">{</span>
+      <span class="na">method</span><span class="p">:</span>  <span class="s1">'GET'</span><span class="p">,</span>
+      <span class="na">headers</span><span class="p">:</span> <span class="p">{</span> <span class="s1">'Token'</span><span class="p">:</span> <span class="nx">API_KEY</span> <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">raw_response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">raw_response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+  <span class="p">})</span>
+</code></pre>
 
-<aside class="notice">This error section is stored in a separate file in `includes/_errors.md`. Slate allows you to optionally separate out your docs into many files&hellip;just save them to the `includes` folder and add them to the top of your `index.md`&rsquo;s frontmatter. Files are included in the order listed.</aside>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="s2">"true"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RUB"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"rooms"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"short_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exdb"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Executive Double Room"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"short_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Executive Double"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Small description..."</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"max_adults"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"max_children"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"max_infants"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"max_occupancy"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"priority"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"photos"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"photo_url1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"photo_url2"</span><span class="p">,</span><span class="w"> </span><span class="s2">"photo_url3"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nt">"facilities"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w"> </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Transfer"</span><span class="p">,</span><span class="w"> </span><span class="nt">"icon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bus"</span><span class="w"> </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w"> </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dog Friendly"</span><span class="p">,</span><span class="w"> </span><span class="nt">"icon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"paw"</span><span class="w"> </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nt">"count_of_rooms"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"better_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8780.40"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"better_price_offered"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"short_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"trfr"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Twin Room / Family Room"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"short_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Twin Room"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Small description for room type"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"max_adults"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"max_children"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"max_infants"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"max_occupancy"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"priority"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"photos"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"photo_url1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"photo_url2"</span><span class="p">,</span><span class="w"> </span><span class="s2">"photo_url3"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nt">"facilities"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+      </span><span class="nt">"count_of_rooms"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"better_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"878.04"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"better_price_offered"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
-<p>The Kittn API uses the following error codes:</p>
+<p>This method return all available to book room types in selected date range.
+date_from and date_to arguments is required.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://app.thebookingfactory.com/api/public/v1/available_rooms</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
 
 <table><thead>
 <tr>
-<th>Error Code</th>
-<th>Meaning</th>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>400</td>
-<td>Bad Request &ndash; Your request sucks</td>
+<td>date_from</td>
+<td>true</td>
+<td>Date from, should be a valid date in ISO 8601 YYYY-MM-DD format</td>
 </tr>
 <tr>
-<td>401</td>
-<td>Unauthorized &ndash; Your API key is wrong</td>
+<td>date_to</td>
+<td>true</td>
+<td>Date to, should be a valid date in ISO 8601 YYYY-MM-DD format</td>
 </tr>
 <tr>
-<td>403</td>
-<td>Forbidden &ndash; The kitten requested is hidden for administrators only</td>
+<td>currency</td>
+<td>false</td>
+<td>Currency code to convert price from hotel currency to user currency based at Exchange rate. If argument is not present, prices returned at hotel base currency.</td>
+</tr>
+</tbody></table>
+
+<aside class="info">
+Currency. This is optional field represented at many our methods. If this argument is present we convert all money fields to selected currency. We support only 3 symbols based currency codes.
+</aside>
+
+<h3 id="response">Response</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>success</td>
+<td>Show current request status, if all is ok then TRUE, if request has any errors then FALSE</td>
 </tr>
 <tr>
-<td>404</td>
-<td>Not Found &ndash; The specified kitten could not be found</td>
+<td>errors</td>
+<td>Array of error descriptions. Displayed only if success == false</td>
 </tr>
 <tr>
-<td>405</td>
-<td>Method Not Allowed &ndash; You tried to access a kitten with an invalid method</td>
+<td>currency</td>
+<td>Currency ISO 4217 alpha-code used to display money fields</td>
 </tr>
 <tr>
-<td>406</td>
-<td>Not Acceptable &ndash; You requested a format that isn&rsquo;t json</td>
+<td>rooms</td>
+<td>Array of available to book room types</td>
+</tr>
+</tbody></table>
+
+<h4 id="room-type-object-description">Room Type object description</h4>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>short_code</td>
+<td>Unique code for room type, we use this field as Room Type ID at public requests</td>
 </tr>
 <tr>
-<td>410</td>
-<td>Gone &ndash; The kitten requested has been removed from our servers</td>
+<td>name</td>
+<td>Name of Room Type</td>
 </tr>
 <tr>
-<td>418</td>
-<td>I&rsquo;m a teapot</td>
+<td>short_name</td>
+<td>Short name of Room Type</td>
 </tr>
 <tr>
-<td>429</td>
-<td>Too Many Requests &ndash; You&rsquo;re requesting too many kittens! Slow down!</td>
+<td>description</td>
+<td>Description of Room Type</td>
 </tr>
 <tr>
-<td>500</td>
-<td>Internal Server Error &ndash; We had a problem with our server. Try again later.</td>
+<td>max_adults</td>
+<td>Max count of adult guests</td>
 </tr>
 <tr>
-<td>503</td>
-<td>Service Unavailable &ndash; We&rsquo;re temporarially offline for maintanance. Please try again later.</td>
+<td>max_children</td>
+<td>Max count of children</td>
+</tr>
+<tr>
+<td>max_infants</td>
+<td>Max count of infants</td>
+</tr>
+<tr>
+<td>max_occupancy</td>
+<td>Max occupancy</td>
+</tr>
+<tr>
+<td>priority</td>
+<td>Visible priority to order Room Types</td>
+</tr>
+<tr>
+<td>photos</td>
+<td>Array of Room Type photo URLs</td>
+</tr>
+<tr>
+<td>facilities</td>
+<td>Array of Room Type facilities. Every facility represented as object with title and icon, where icon is FontAwesome icon key</td>
+</tr>
+<tr>
+<td>count_of_rooms</td>
+<td>Count of available to book room at current Room Type</td>
+</tr>
+<tr>
+<td>better_price</td>
+<td>Better available price</td>
+</tr>
+<tr>
+<td>better_price_offered</td>
+<td>True if better price provided with discount, false if better price is base rate</td>
+</tr>
+</tbody></table>
+
+<h2 id="get-available-offers">Get Available Offers</h2>
+<pre class="highlight javascript"><code><span class="nx">fetch</span><span class="p">(</span>
+    <span class="nx">API_ENDPOINT</span> <span class="o">+</span> <span class="s1">'available_offers?date_from=2016-09-20&amp;date_to=2016-09-22&amp;room_type=exdb'</span><span class="p">,</span>
+    <span class="p">{</span>
+      <span class="na">method</span><span class="p">:</span>  <span class="s1">'GET'</span><span class="p">,</span>
+      <span class="na">headers</span><span class="p">:</span> <span class="p">{</span> <span class="s1">'Token'</span><span class="p">:</span> <span class="nx">API_KEY</span> <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">raw_response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">raw_response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+  <span class="p">})</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="s2">"true"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"offers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Base Rate"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"rate_category"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"special_offer"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"total_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"22.00"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"cancellation_policy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cancellation policy description"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15% Discount"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"rate_category"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"special_offer"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"total_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"18.70"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"cancellation_policy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cancellation policy description"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint retrieves list of all available to book offers.
+date_from, date_to and room_type is required fields.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://app.thebookingfactory.com/api/public/v1/available_dates</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>date_from</td>
+<td>true</td>
+<td>Date from, should be a valid date in ISO 8601 YYYY-MM-DD format</td>
+</tr>
+<tr>
+<td>date_to</td>
+<td>true</td>
+<td>Date to, should be a valid date in ISO 8601 YYYY-MM-DD format</td>
+</tr>
+<tr>
+<td>room_type</td>
+<td>true</td>
+<td>Selected room short_code</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>false</td>
+<td>Currency code to convert price from hotel currency to user currency based at Exchange rate</td>
+</tr>
+</tbody></table>
+
+<h3 id="response">Response</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>success</td>
+<td>Show current request status, if all is ok then TRUE, if request has any errors then FALSE</td>
+</tr>
+<tr>
+<td>errors</td>
+<td>Array of error descriptions. Displayed only if success == false</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>Currency ISO 4217 alpha-code used to display money fields</td>
+</tr>
+<tr>
+<td>offers</td>
+<td>Array of available to book offers for selected Room Type</td>
+</tr>
+</tbody></table>
+
+<h4 id="offer-object-description">Offer object description</h4>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>title</td>
+<td>Offer title</td>
+</tr>
+<tr>
+<td>rate_category</td>
+<td>Rate Category ID</td>
+</tr>
+<tr>
+<td>special_offer</td>
+<td>Special Offer ID</td>
+</tr>
+<tr>
+<td>total_price</td>
+<td>Total price</td>
+</tr>
+<tr>
+<td>cancellation_policy</td>
+<td>Cancellation policy description</td>
+</tr>
+</tbody></table>
+
+<h2 id="get-available-extras">Get Available Extras</h2>
+<pre class="highlight javascript"><code><span class="nx">fetch</span><span class="p">(</span>
+    <span class="nx">API_ENDPOINT</span> <span class="o">+</span> <span class="s1">'available_extras'</span><span class="p">,</span>
+    <span class="p">{</span>
+      <span class="na">method</span><span class="p">:</span>  <span class="s1">'GET'</span><span class="p">,</span>
+      <span class="na">headers</span><span class="p">:</span> <span class="p">{</span> <span class="s1">'Token'</span><span class="p">:</span> <span class="nx">API_KEY</span> <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">raw_response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">raw_response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+  <span class="p">})</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"extras"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Extra Title 1"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.00"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"vat"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10.00"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Extra Title 2"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12.00"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"vat"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20.00"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint retrieves list of all available extras.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://app.thebookingfactory.com/api/public/v1/available_extras</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>currency</td>
+<td>false</td>
+<td>Currency code to convert price from hotel currency to user currency</td>
+</tr>
+</tbody></table>
+
+<h3 id="response">Response</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>success</td>
+<td>Show current request status, if all is ok then TRUE, if request has any errors then FALSE</td>
+</tr>
+<tr>
+<td>errors</td>
+<td>Array of error descriptions. Displayed only if success == false</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>Currency ISO 4217 alpha-code used to display money fields</td>
+</tr>
+<tr>
+<td>extras</td>
+<td>Array of available to book extras</td>
+</tr>
+</tbody></table>
+
+<h4 id="extras-object-description">Extras object description</h4>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Extra ID</td>
+</tr>
+<tr>
+<td>title</td>
+<td>Extra title</td>
+</tr>
+<tr>
+<td>price</td>
+<td>Extra price per item</td>
+</tr>
+<tr>
+<td>vat</td>
+<td>VAT percent for extra</td>
+</tr>
+</tbody></table>
+
+<h2 id="check-member">Check Member</h2>
+<pre class="highlight javascript"><code><span class="nx">fetch</span><span class="p">(</span>
+    <span class="nx">API_ENDPOINT</span> <span class="o">+</span> <span class="s1">'check_member?email=member@thebookingfactory.com'</span><span class="p">,</span>
+    <span class="p">{</span>
+      <span class="na">method</span><span class="p">:</span>  <span class="s1">'GET'</span><span class="p">,</span>
+      <span class="na">headers</span><span class="p">:</span> <span class="p">{</span> <span class="s1">'Token'</span><span class="p">:</span> <span class="nx">API_KEY</span> <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">raw_response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">raw_response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+  <span class="p">})</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="s2">"true"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"member_is_present"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint check member exists or not in our system.</p>
+
+<p>If member is exists, system send email with authentication code for member. Member can use this code to auth at your booking engine.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://app.thebookingfactory.com/api/public/v1/check_member</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>email</td>
+<td>true</td>
+<td>Valid member email address</td>
+</tr>
+</tbody></table>
+
+<h3 id="response">Response</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>success</td>
+<td>Show current request status, if all is ok then TRUE, if request has any errors then FALSE</td>
+</tr>
+<tr>
+<td>errors</td>
+<td>Array of error descriptions. Displayed only if success == false</td>
+</tr>
+<tr>
+<td>member_is_present</td>
+<td>True if member exists, False if not</td>
+</tr>
+</tbody></table>
+
+<h2 id="get-member-details">Get Member Details</h2>
+<pre class="highlight javascript"><code><span class="nx">fetch</span><span class="p">(</span>
+    <span class="nx">API_ENDPOINT</span> <span class="o">+</span> <span class="s1">'member_details?email=member@thebookingfactory.com&amp;code=1234'</span>
+    <span class="p">{</span>
+      <span class="nl">method</span><span class="p">:</span>  <span class="s1">'GET'</span><span class="p">,</span>
+      <span class="nx">headers</span><span class="err">:</span> <span class="p">{</span> <span class="s1">'Token'</span><span class="err">:</span> <span class="nx">API_KEY</span> <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">raw_response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">raw_response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+  <span class="p">})</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="s2">"true"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"member"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FirstName"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LastName"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"member@thebookingfactory.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+123321123321"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Member address"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"City"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"postal_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"POSTAL CODE"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"State"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Country"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"last_4"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint retrieves member details to fill booking form.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://app.thebookingfactory.com/api/public/v1/member_details</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>email</td>
+<td>true</td>
+<td>Valid member email address</td>
+</tr>
+<tr>
+<td>code</td>
+<td>true</td>
+<td>4 digest authentication code</td>
+</tr>
+</tbody></table>
+
+<h3 id="response">Response</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>success</td>
+<td>Show current request status, if all is ok then TRUE, if request has any errors then FALSE</td>
+</tr>
+<tr>
+<td>errors</td>
+<td>Array of error descriptions. Displayed only if success == false</td>
+</tr>
+<tr>
+<td>member</td>
+<td>Member object</td>
+</tr>
+</tbody></table>
+
+<h4 id="member-object-descriptions">Member object descriptions</h4>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>first_name</td>
+<td>Members first name</td>
+</tr>
+<tr>
+<td>last_name</td>
+<td>Members last name</td>
+</tr>
+<tr>
+<td>email</td>
+<td>Members email</td>
+</tr>
+<tr>
+<td>phone</td>
+<td>Members phone</td>
+</tr>
+<tr>
+<td>address</td>
+<td>Members address</td>
+</tr>
+<tr>
+<td>city</td>
+<td>Members city</td>
+</tr>
+<tr>
+<td>postal_code</td>
+<td>Members postal code</td>
+</tr>
+<tr>
+<td>state</td>
+<td>Members state</td>
+</tr>
+<tr>
+<td>country</td>
+<td>Members country</td>
+</tr>
+<tr>
+<td>last_4</td>
+<td>Members card last 4 digest</td>
+</tr>
+</tbody></table>
+
+<h2 id="calculate-booking-totals">Calculate Booking Totals</h2>
+<pre class="highlight javascript"><code><span class="nx">fetch</span><span class="p">(</span>
+    <span class="nx">API_ENDPOINT</span> <span class="o">+</span> <span class="s1">'calculate_totals'</span><span class="p">,</span>
+    <span class="p">{</span>
+      <span class="na">method</span><span class="p">:</span>  <span class="s1">'POST'</span><span class="p">,</span>
+      <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">'Token'</span><span class="p">:</span> <span class="nx">API_KEY</span><span class="p">,</span>
+        <span class="s1">'Content-Type'</span><span class="p">:</span> <span class="s1">'application/json'</span>
+      <span class="p">},</span>
+      <span class="na">body</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">'date_from'</span> <span class="p">:</span> <span class="s1">'2016-09-22'</span><span class="p">,</span>
+        <span class="s1">'date_to'</span> <span class="p">:</span> <span class="s1">'2016-09-23'</span><span class="p">,</span>
+        <span class="s1">'rooms'</span> <span class="p">:</span> <span class="p">[</span>
+          <span class="p">{</span>
+            <span class="s1">'room_code'</span> <span class="p">:</span> <span class="s1">'exdb'</span><span class="p">,</span>
+            <span class="s1">'offer'</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+            <span class="s1">'rate_category'</span> <span class="p">:</span> <span class="mi">3</span>
+          <span class="p">}</span>
+        <span class="p">],</span>
+        <span class="s1">'extras'</span> <span class="p">:</span> <span class="p">[</span>
+          <span class="s1">'id'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+          <span class="s1">'count'</span><span class="p">:</span> <span class="mi">10</span>
+        <span class="p">]</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">raw_response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">raw_response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+  <span class="p">})</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="s2">"true"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"total"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"total"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11.00"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"subtotal"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3.65"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"rooms_total"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11.00"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"extras_total"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"taxes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"included_taxes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VAT"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20.0"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"sum"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.83"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Luxury Tax"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5.0"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"sum"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.52"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"City Tax"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5.0 per room"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"sum"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5.00"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nt">"excluded_taxes"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint calculate totals for provided booking object</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST http://app.thebookingfactory.com/api/public/v1/calculate_totals</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>date_from</td>
+<td>true</td>
+<td>date_from should be a valid date in ISO 8601 YYYY-MM-DD format</td>
+</tr>
+<tr>
+<td>date_to</td>
+<td>true</td>
+<td>date_to should be a valid date in ISO 8601 YYYY-MM-DD format</td>
+</tr>
+<tr>
+<td>rooms</td>
+<td>true</td>
+<td>Array of Rooms object</td>
+</tr>
+<tr>
+<td>extras</td>
+<td>true</td>
+<td>Array of Extras object</td>
+</tr>
+</tbody></table>
+
+<h4 id="room-object">Room object</h4>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>room_code</td>
+<td>Unique room code</td>
+</tr>
+<tr>
+<td>offer</td>
+<td>ID of selected offer, null if user selected default rate category</td>
+</tr>
+<tr>
+<td>rate_category</td>
+<td>ID of selected rate category</td>
+</tr>
+</tbody></table>
+
+<p>NOTE: All of this data you can get from offers method</p>
+
+<h4 id="extra-object">Extra object</h4>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>extra_id</td>
+<td>ID of selected Extra</td>
+</tr>
+<tr>
+<td>count</td>
+<td>Count of items for selected Extra</td>
+</tr>
+</tbody></table>
+
+<h3 id="response">Response</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>success</td>
+<td>Show current request status, if all is ok then TRUE, if request has any errors then FALSE</td>
+</tr>
+<tr>
+<td>errors</td>
+<td>Array of error descriptions. Displayed only if success == false</td>
+</tr>
+<tr>
+<td>totals</td>
+<td>Member object</td>
+</tr>
+</tbody></table>
+
+<h4 id="totals-object">Totals object</h4>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>total</td>
+<td>Total booking sum</td>
+</tr>
+<tr>
+<td>subtotal</td>
+<td>Subtotal sum without taxes</td>
+</tr>
+<tr>
+<td>rooms_total</td>
+<td>Sum of total rooms cost</td>
+</tr>
+<tr>
+<td>extras_total</td>
+<td>Sum of total extras cost</td>
+</tr>
+<tr>
+<td>taxes</td>
+<td>Object with included and excluded taxes, every tax described as Title, Percent and Sum</td>
+</tr>
+</tbody></table>
+
+<h2 id="create-booking">Create Booking</h2>
+<pre class="highlight javascript"><code><span class="nx">fetch</span><span class="p">(</span>
+    <span class="nx">API_ENDPOINT</span> <span class="o">+</span> <span class="s1">'create_booking'</span><span class="p">,</span>
+    <span class="p">{</span>
+      <span class="na">method</span><span class="p">:</span>  <span class="s1">'POST'</span><span class="p">,</span>
+      <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">'Token'</span><span class="p">:</span> <span class="nx">API_KEY</span><span class="p">,</span>
+        <span class="s1">'Content-Type'</span><span class="p">:</span> <span class="s1">'application/json'</span>
+      <span class="p">},</span>
+      <span class="na">body</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">'date_from'</span> <span class="p">:</span> <span class="s1">'2016-09-22'</span><span class="p">,</span>
+        <span class="s1">'date_to'</span> <span class="p">:</span> <span class="s1">'2016-09-23'</span><span class="p">,</span>
+        <span class="s1">'rooms'</span> <span class="p">:</span> <span class="p">[</span>
+          <span class="p">{</span>
+            <span class="s1">'room_code'</span> <span class="p">:</span> <span class="s1">'exdb'</span><span class="p">,</span>
+            <span class="s1">'offer'</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+            <span class="s1">'rate_category'</span> <span class="p">:</span> <span class="mi">3</span>
+          <span class="p">}</span>
+        <span class="p">],</span>
+        <span class="s1">'extras'</span> <span class="p">:</span> <span class="p">[</span>
+          <span class="s1">'id'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+          <span class="s1">'count'</span><span class="p">:</span> <span class="mi">10</span>
+        <span class="p">],</span>
+        <span class="s1">'card'</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">'token'</span><span class="p">:</span> <span class="s1">'valid_credit_card_token'</span><span class="p">,</span>
+            <span class="s1">'provider'</span><span class="p">:</span> <span class="s1">'braintree'</span>
+        <span class="p">},</span>
+        <span class="s1">'customer'</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">'email'</span> <span class="p">:</span> <span class="s1">'customer@test.com'</span><span class="p">,</span>
+            <span class="s1">'first_name'</span> <span class="p">:</span> <span class="s1">'FirstName'</span><span class="p">,</span>
+            <span class="s1">'last_name'</span> <span class="p">:</span> <span class="s1">'LastName'</span><span class="p">,</span>
+            <span class="s1">'phone_number'</span><span class="p">:</span> <span class="s1">'+12312332123'</span><span class="p">,</span>
+            <span class="s1">'address'</span><span class="p">:</span> <span class="s1">'Address'</span><span class="p">,</span>
+            <span class="s1">'country'</span><span class="p">:</span> <span class="s1">'GB'</span><span class="p">,</span>
+            <span class="s1">'city'</span><span class="p">:</span> <span class="s1">'City name'</span><span class="p">,</span>
+            <span class="s1">'postal_code'</span><span class="p">:</span> <span class="s1">'Postal Code'</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">raw_response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">raw_response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+  <span class="p">})</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AAA-000000-W"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint create new booking at TheBookingFactory system.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST http://app.thebookingfactory.com/api/public/v1/create_booking</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>date_from</td>
+<td>true</td>
+<td>date_from should be a valid date in ISO 8601 YYYY-MM-DD format</td>
+</tr>
+<tr>
+<td>date_to</td>
+<td>true</td>
+<td>date_to should be a valid date in ISO 8601 YYYY-MM-DD format</td>
+</tr>
+<tr>
+<td>rooms</td>
+<td>true</td>
+<td>Array of Rooms object</td>
+</tr>
+<tr>
+<td>extras</td>
+<td>true</td>
+<td>Array of Extras object</td>
+</tr>
+<tr>
+<td>card</td>
+<td>true</td>
+<td>Card object</td>
+</tr>
+<tr>
+<td>customer</td>
+<td>true</td>
+<td>Customer object</td>
+</tr>
+</tbody></table>
+
+<h4 id="room-object">Room object</h4>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>room_code</td>
+<td>Unique room code</td>
+</tr>
+<tr>
+<td>offer</td>
+<td>ID of selected offer, null if user selected default rate category</td>
+</tr>
+<tr>
+<td>rate_category</td>
+<td>ID of selected rate category</td>
+</tr>
+</tbody></table>
+
+<p>NOTE: All of this data you can get from offers method</p>
+
+<h4 id="extra-object">Extra object</h4>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>extra_id</td>
+<td>ID of selected Extra</td>
+</tr>
+<tr>
+<td>count</td>
+<td>Count of items for selected Extra</td>
+</tr>
+</tbody></table>
+
+<h4 id="card-object">Card object</h4>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>token</td>
+<td>Valid credit card token from tokenization service</td>
+</tr>
+<tr>
+<td>provider</td>
+<td>Tokenization service name</td>
+</tr>
+</tbody></table>
+
+<h4 id="customer-object">Customer object</h4>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>email</td>
+<td>Customer email</td>
+</tr>
+<tr>
+<td>first_name</td>
+<td>Customer first name</td>
+</tr>
+<tr>
+<td>last_name</td>
+<td>Customer last name</td>
+</tr>
+<tr>
+<td>phone</td>
+<td>Customer phone</td>
+</tr>
+<tr>
+<td>address</td>
+<td>Customer address</td>
+</tr>
+<tr>
+<td>city</td>
+<td>Customer city</td>
+</tr>
+<tr>
+<td>postal_code</td>
+<td>Customer postal code</td>
+</tr>
+<tr>
+<td>state</td>
+<td>Customer state</td>
+</tr>
+<tr>
+<td>country</td>
+<td>Customer country ISO 3166-1 alpha-2 code</td>
+</tr>
+</tbody></table>
+
+<h3 id="response">Response</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>success</td>
+<td>Show current request status, if all is ok then TRUE, if request has any errors then FALSE</td>
+</tr>
+<tr>
+<td>errors</td>
+<td>Array of error descriptions. Displayed only if success == false</td>
+</tr>
+<tr>
+<td>token</td>
+<td>Booking token string</td>
 </tr>
 </tbody></table>
 
       </div>
       <div class="dark-box">
           <div class="lang-selector">
-                <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
+                <a href="#" data-language-name="javascript">javascript</a>
           </div>
       </div>
     </div>
