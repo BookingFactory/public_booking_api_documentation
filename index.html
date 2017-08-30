@@ -150,6 +150,235 @@ You must replace <code>meowmeowmeow</code> with your personal API key.
 
 <h1 id="methods">Methods</h1>
 
+<h2 id="get-hotel-info">Get Hotel Info</h2>
+<pre class="highlight javascript"><code><span class="nx">fetch</span><span class="p">(</span>
+    <span class="nx">API_ENDPOINT</span> <span class="o">+</span> <span class="s1">'hotel_info'</span><span class="p">,</span>
+    <span class="p">{</span>
+      <span class="na">method</span><span class="p">:</span>  <span class="s1">'GET'</span><span class="p">,</span>
+      <span class="na">headers</span><span class="p">:</span> <span class="p">{</span> <span class="s1">'Token'</span><span class="p">:</span> <span class="nx">API_KEY</span> <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">raw_response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">raw_response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+  <span class="p">})</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"hotel"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Demo Hotel"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://app.thebookingfactory.com/client/images/small-logo.svg"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"payment_gateway"</span><span class="p">:</span><span class="w"> </span><span class="s2">"stripe"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"payment_connection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXXXXXXXX"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"membership_active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"membership_benefit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10% off"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"membership_discount"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"membership_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Some description to show more information about membership system and benefits.&lt;br&gt;&lt;br&gt;Test some &lt;span style=\"font-weight: bold; text-decoration: underline;\"&gt;HTML&lt;/span&gt; code&lt;br&gt;&lt;br&gt;And other &lt;span style=\"font-size: 9px;\"&gt;HTML&lt;/span&gt; options"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"policy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hotel Base Policy Text"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"website"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://demo-hotel.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"sell_with_extras"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"address_is_required"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"phone_is_required"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"credit_card_is_required"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"allow_zero_price"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name_per_room_is_required"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"questions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"input"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"options"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+        </span><span class="nt">"question"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test Q"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"isRequired"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"textarea"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"options"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+        </span><span class="nt">"question"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test Q2"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"isRequired"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"select"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"options"</span><span class="p">:</span><span class="w"> </span><span class="s2">"option 1,option 2"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"question"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test Q3"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"isRequired"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nt">"password_is_required"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"hide_address_at_desktop"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"hide_address_at_mobile"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"hide_phone_at_desktop"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"hide_phone_at_mobile"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"show_member_at_start"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint retrieves base information about hotel.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET https://app.thebookingfactory.com/api/public/v1/hotel_info</code></p>
+
+<h3 id="response">Response</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>success</td>
+<td>Show current request status, if all is ok then TRUE, if request has any errors then FALSE</td>
+</tr>
+<tr>
+<td>errors</td>
+<td>Array of error descriptions. Displayed only if success == false</td>
+</tr>
+<tr>
+<td>hotel</td>
+<td>Object with information about Hotel</td>
+</tr>
+</tbody></table>
+
+<h4 id="hotel-object-description">Hotel object description</h4>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>name</td>
+<td>Hotel name</td>
+</tr>
+<tr>
+<td>logo</td>
+<td>URL to hotel logo if defined</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>Default Currency for hotel</td>
+</tr>
+<tr>
+<td>payment_gateway</td>
+<td>Payment provider (we are support Stripe, Braintree, Omise and WorldPay)</td>
+</tr>
+<tr>
+<td>payment_connection</td>
+<td>Payment provider token</td>
+</tr>
+<tr>
+<td>membership_active</td>
+<td>TRUE if hotel is enable Membership programm</td>
+</tr>
+<tr>
+<td>membership_benefit</td>
+<td>Membership program benefit as text</td>
+</tr>
+<tr>
+<td>membership_discount</td>
+<td>Membership program discount</td>
+</tr>
+<tr>
+<td>membership_description</td>
+<td>Membership program description (HTML Code)</td>
+</tr>
+<tr>
+<td>policy</td>
+<td>Base Hotel policy text</td>
+</tr>
+<tr>
+<td>website</td>
+<td>Hotel Website URL</td>
+</tr>
+<tr>
+<td>sell_with_extras</td>
+<td>TRUE if hotel has some extras to sell on booking process</td>
+</tr>
+<tr>
+<td>address_is_required</td>
+<td>TRUE if Hotel require guest Address</td>
+</tr>
+<tr>
+<td>phone_is_required</td>
+<td>TRUE if Hotel require guest Phone</td>
+</tr>
+<tr>
+<td>credit_card_is_required</td>
+<td>TRUE if Hotel require guest Credit Card</td>
+</tr>
+<tr>
+<td>allow_zero_price</td>
+<td>TRUE if Hotel accept bookings with 0 price (applicable to corporate resorts)</td>
+</tr>
+<tr>
+<td>name_per_room_is_required</td>
+<td>TRUE if Hotel require Guest Name for each room in booking</td>
+</tr>
+<tr>
+<td>questions</td>
+<td>Array of questions</td>
+</tr>
+<tr>
+<td>password_is_required</td>
+<td>TRUE if Hotel require password for booking process (applicable to corporate resorts)</td>
+</tr>
+<tr>
+<td>hide_address_at_desktop</td>
+<td>Field visibility arguments</td>
+</tr>
+<tr>
+<td>hide_address_at_mobile</td>
+<td>Field visibility arguments</td>
+</tr>
+<tr>
+<td>hide_phone_at_desktop</td>
+<td>Field visibility arguments</td>
+</tr>
+<tr>
+<td>hide_phone_at_mobile</td>
+<td>Field visibility arguments</td>
+</tr>
+<tr>
+<td>show_member_at_start</td>
+<td>TRUE if hotel like show membership popup at start</td>
+</tr>
+</tbody></table>
+
+<h4 id="question-object-description">Question object description</h4>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>type</td>
+<td>Type of question field. Possible values: input, textarea, select</td>
+</tr>
+<tr>
+<td>options</td>
+<td>Comma separated options for select type</td>
+</tr>
+<tr>
+<td>question</td>
+<td>Question text</td>
+</tr>
+<tr>
+<td>isRequired</td>
+<td>Required marker. TRUE if Hotel require answer for booking process</td>
+</tr>
+</tbody></table>
+
 <h2 id="get-available-dates">Get Available Dates</h2>
 <pre class="highlight javascript"><code><span class="nx">fetch</span><span class="p">(</span>
     <span class="nx">API_ENDPOINT</span> <span class="o">+</span> <span class="s1">'available_dates?date_from=2016-09-20'</span><span class="p">,</span>
