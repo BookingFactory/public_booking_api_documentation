@@ -44,6 +44,126 @@ You must replace <code>meowmeowmeow</code> with your personal API key.
 
 # Methods
 
+## Get Hotel Info
+
+```javascript
+fetch(
+    API_ENDPOINT + 'hotel_info',
+    {
+      method:  'GET',
+      headers: { 'Token': API_KEY }
+    }
+  )
+  .then(function(raw_response) {
+    return raw_response.json();
+  })
+  .then(function(response) {
+    console.log(response);
+  })
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "success": true,
+  "hotel": {
+    "name": "Demo Hotel",
+    "logo": "https://app.thebookingfactory.com/client/images/small-logo.svg",
+    "currency": "GBP",
+    "payment_gateway": "stripe",
+    "payment_connection": "XXXXXXXXXX",
+    "membership_active": true,
+    "membership_benefit": "10% off",
+    "membership_discount": 10,
+    "membership_description": "Some description to show more information about membership system and benefits.<br><br>Test some <span style=\"font-weight: bold; text-decoration: underline;\">HTML</span> code<br><br>And other <span style=\"font-size: 9px;\">HTML</span> options",
+    "policy": "Hotel Base Policy Text",
+    "website": "https://demo-hotel.com",
+    "sell_with_extras": true,
+    "address_is_required": true,
+    "phone_is_required": true,
+    "credit_card_is_required": true,
+    "allow_zero_price": false,
+    "name_per_room_is_required": false,
+    "questions": [
+      {
+        "type": "input",
+        "options": [],
+        "question": "Test Q",
+        "isRequired": false
+      },
+      {
+        "type": "textarea",
+        "options": [],
+        "question": "Test Q2",
+        "isRequired": true
+      },
+      {
+        "type": "select",
+        "options": "option 1,option 2",
+        "question": "Test Q3",
+        "isRequired": true
+      }
+    ],
+    "password_is_required": true,
+    "hide_address_at_desktop": false,
+    "hide_address_at_mobile": false,
+    "hide_phone_at_desktop": false,
+    "hide_phone_at_mobile": false,
+    "show_member_at_start": false
+  }
+}
+```
+
+This endpoint retrieves base information about hotel.
+
+### HTTP Request
+
+`GET https://app.thebookingfactory.com/api/public/v1/hotel_info`
+
+### Response
+Parameter | Description
+--------- | -----------
+success | Show current request status, if all is ok then TRUE, if request has any errors then FALSE
+errors | Array of error descriptions. Displayed only if success == false
+hotel | Object with information about Hotel
+
+#### Hotel object description
+Parameter | Description
+--------- | -----------
+name | Hotel name
+logo | URL to hotel logo if defined
+currency | Default Currency for hotel
+payment_gateway | Payment provider (we are support Stripe, Braintree, Omise and WorldPay)
+payment_connection | Payment provider token
+membership_active | TRUE if hotel is enable Membership programm
+membership_benefit | Membership program benefit as text
+membership_discount | Membership program discount
+membership_description | Membership program description (HTML Code)
+policy | Base Hotel policy text
+website | Hotel Website URL
+sell_with_extras | TRUE if hotel has some extras to sell on booking process
+address_is_required | TRUE if Hotel require guest Address
+phone_is_required | TRUE if Hotel require guest Phone
+credit_card_is_required | TRUE if Hotel require guest Credit Card
+allow_zero_price | TRUE if Hotel accept bookings with 0 price (applicable to corporate resorts)
+name_per_room_is_required | TRUE if Hotel require Guest Name for each room in booking
+questions | Array of questions
+password_is_required | TRUE if Hotel require password for booking process (applicable to corporate resorts)
+hide_address_at_desktop | Field visibility arguments
+hide_address_at_mobile | Field visibility arguments
+hide_phone_at_desktop | Field visibility arguments
+hide_phone_at_mobile | Field visibility arguments
+show_member_at_start | TRUE if hotel like show membership popup at start
+
+#### Question object description
+Parameter | Description
+--------- | -----------
+type | Type of question field. Possible values: input, textarea, select
+options | Comma separated options for select type
+question | Question text
+isRequired | Required marker. TRUE if Hotel require answer for booking process
+
 ## Get Available Dates
 
 ```javascript
