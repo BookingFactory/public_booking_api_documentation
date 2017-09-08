@@ -386,7 +386,7 @@ date_from, date_to and room_type is required fields.
 
 ### HTTP Request
 
-`GET https://app.thebookingfactory.com/api/public/v1/available_dates`
+`GET https://app.thebookingfactory.com/api/public/v1/available_offers`
 
 ### Query Parameters
 
